@@ -4,6 +4,12 @@
 #include <TLorentzVector.h>
 #include <iostream>
 
+// #include "LHAPDF.h"
+
+#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
+#include "DataFormats/Candidate/interface/CompositeCandidate.h"
+#include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
+
 class PDF {
 public:
  //! constructor
@@ -45,6 +51,8 @@ PDF::PDF(float x1, float x2, float id1, float id2, float pdf1, float pdf2, float
 //! functions
 
 float PDF::w1(){
+ 
+ float weight = LHAPDF::xfx (_x1, _scale, _id1) * LHAPDF::xfx (_x2, _scale, _id2) ;
  
  return -1;
  
