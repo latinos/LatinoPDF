@@ -57,10 +57,10 @@ class PDFVarFiller(TreeCloner):
 
         # change this part into correct path structure... 
         cmssw_base = os.getenv('CMSSW_BASE')
-        #try:
-            #ROOT.gROOT.LoadMacro(cmssw_base+'/src/HWWAnalysis/ShapeAnalysis/python/tree/WW2jVar.C+g')
-        #except RuntimeError:
-            #ROOT.gROOT.LoadMacro(cmssw_base+'/src/HWWAnalysis/ShapeAnalysis/python/tree/WW2jVar.C++g')
+        try:
+            ROOT.gROOT.LoadMacro(cmssw_base+'/src/LatinoAnalysis/LatinoPDF/python/pdf.C+g')
+        except RuntimeError:
+            ROOT.gROOT.LoadMacro(cmssw_base+'/src/LatinoAnalysis/LatinoPDF/python/pdf.C++g')
         #----------------------------------------------------------------------------------------------------
         print '- Starting eventloop'
         step = 5000
@@ -72,13 +72,18 @@ class PDFVarFiller(TreeCloner):
             if i > 0 and i%step == 0.:
                 print i,'events processed.'
 
-            x1 = itree.x1
+            x1   = itree.pdfx1
+            id1  = itree.pdfid1
+            pdf1 = itree.pdfx1PDF
+            x2   = itree.pdfx2
+            id2  = itree.pdfid2
+            pdf2 = itree.pdfx2PDF
+            scale = itree.pdfscalePDF
 
-            #WW2j = ROOT.WW2j(pt1, pt2, eta1, eta2, phi1, phi2,    jetpt1, jetpt2, jeteta1, jeteta2, jetphi1, jetphi2)
+            PDF = ROOT.PDF(x1, x2, id1, id2, pdf1, pdf2, scale)
 
-            #w1[0]   = WW2j.Mljcloser()
-            #w2[0]  = WW2j.Mljfarther()
-
+            w1[0]   = PDF.w1()
+            
             otree.Fill()
 
         self.disconnect()
