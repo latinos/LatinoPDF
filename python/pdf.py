@@ -58,39 +58,12 @@ class PDFVarFiller(TreeCloner):
         # change this part into correct path structure... 
         cmssw_base = os.getenv('CMSSW_BASE')
         try:
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1-cms4/lib/libLHAPDF.a')
-            #import ctypes
-            #la = ctypes.CDLL("/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1-cms4/lib/python2.7/site-packages/_lhapdf.so", 0x100 | 0x2)
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1-cms4/lib/python2.7/site-packages/_lhapdf.so')
-            #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1-cms4/include')
 
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5/lib/libLHAPDF.so')
-            #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5/include')
-
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/lib/python2.7/site-packages/_lhapdf.so')
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/lib/python2.7/site-packages/_lhapdf')
+            ROOT.gSystem.Exec("ln -s /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/lib/libLHAPDF.a")
             #ln -s /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/lib/libLHAPDF.a 
             ROOT.gSystem.Load('libLHAPDF.so')
             ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/include')
-                
-            
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-odfocd/lib/libLHAPDF.so')
-            #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-odfocd/include')
-            
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc491/external/lhapdf6/6.1.5-cms/lib/libLHAPDF.so')
-            #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc491/external/lhapdf6/6.1.5-cms/include')
-            
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5-cms/lib/libLHAPDF.so')
-            #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5-cms/include')
-            
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5/lib/libLHAPDF.so')
-            #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5/include')
-            
-            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5/lib/python2.7/site-packages/lhapdf.so')
-            #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5/include')
-            
-            
-            
+   
             
             ROOT.gROOT.LoadMacro(cmssw_base+'/src/LatinoAnalysis/LatinoPDF/python/pdf.C+g')
         except RuntimeError:

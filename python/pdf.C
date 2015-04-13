@@ -47,7 +47,7 @@ PDF::PDF() {
  
  LHAPDF::initPDFSet (NAME, LHAPDF::LHPDF, SUBSET) ;
  const int NUMBER = LHAPDF::numberPDF () ;
- 
+ std::cout << " NUMBER = " << NUMBER << std::endl;
  LHAPDF::initPDF (0) ;
 }
 
@@ -78,11 +78,10 @@ void PDF::SetIncoming(float x1, float x2, float id1, float id2, float pdf1, floa
 
 float PDF::w1(){
  
-//  float weight = LHAPDF::xfx ((double) _x1, (double) _scale, (int) _id1) * LHAPDF::xfx ((double) _x2, (double) _scale, (int) _id2) ;
-
- float weight = LHAPDF::xfx (0.2, 1.23, 1);
- std::cout << " weight = " << weight << std::endl;
- weight+=1;
+ float weight = LHAPDF::xfx ((double) _x1, (double) _scale, (int) _id1) * LHAPDF::xfx ((double) _x2, (double) _scale, (int) _id2) ;
+//  float weight = LHAPDF::xfx (0.2, 1.23, 1);
+//  std::cout << " weight = " << weight << std::endl;
+//  weight+=1;
  
  return weight;
  
