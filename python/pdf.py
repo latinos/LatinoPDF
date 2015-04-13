@@ -90,8 +90,10 @@ class PDFVarFiller(TreeCloner):
             scale = itree.pdfscalePDF
 
             PDF.SetIncoming(x1, x2, id1, id2, pdf1, pdf2, scale)
-
+            PDF.CalculateWeights()
+            
             w1[0]   = PDF.w1()
+            w2[0]   = PDF.weight(2)
             
             otree.Fill()
 

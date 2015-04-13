@@ -21,10 +21,11 @@ public:
  virtual ~PDF() {};
  
  void SetIncoming(float x1, float x2, float id1, float id2, float pdf1, float pdf2, float scale);
- 
+ void CalculateWeights();
  
  //! functions
  float w1();
+ float weight(int pos);
  
 private:
  //! variables
@@ -37,6 +38,8 @@ private:
  float _pdf2;
  
  float _scale;
+ 
+ std::vector<double> _weights;
  
 };
 
@@ -76,15 +79,32 @@ void PDF::SetIncoming(float x1, float x2, float id1, float id2, float pdf1, floa
  
 }
 
+void PDF::CalculateWeights() {
+
+//  See http://cmslxr.fnal.gov/lxr/source/ElectroWeakAnalysis/Utilities/src/PdfWeightProducer.cc
  
+ _weights.clear();
+ 
+ float newWeight = LHAPDF::xfx ((double) _x1, (double) _scale, (int) _id1) * LHAPDF::xfx ((double) _x2, (double) _scale, (int) _id2) ;
+ _weights.push_back(newWeight);
+ 
+}
+
 float PDF::w1(){
  
- float startingWeight = LHAPDF::xfx ((double) _x1, (double) _scale, (int) _id1) * LHAPDF::xfx ((double) _x2, (double) _scale, (int) _id2) ;
-//  float weight = LHAPDF::xfx (0.2, 1.23, 1);
-//  std::cout << " weight = " << weight << std::endl;
-//  weight+=1;
+ return weight(0);
  
- return startingWeight;
+}
+
+
+float PDF::weight(int pos){
+ 
+ if (pos < _weights.size()) {
+  return _weights.at(pos);
+ }
+ else {
+  return -1;
+ }
  
 }
 
