@@ -16,8 +16,12 @@
 class PDF {
 public:
  //! constructor
+ PDF();
  PDF(float x1, float x2, float id1, float id2, float pdf1, float pdf2, float scale);
  virtual ~PDF() {};
+ 
+ void SetIncoming(float x1, float x2, float id1, float id2, float pdf1, float pdf2, float scale);
+ 
  
  //! functions
  float w1();
@@ -37,8 +41,29 @@ private:
 };
 
 //! constructor
+PDF::PDF() {
+ const int SUBSET = 0 ;
+ const std::string NAME = "cteq6ll" ; //"cteq6l1"
+ 
+ LHAPDF::initPDFSet (NAME, LHAPDF::LHPDF, SUBSET) ;
+ const int NUMBER = LHAPDF::numberPDF () ;
+ 
+ LHAPDF::initPDF (0) ;
+}
+
+
 PDF::PDF(float x1, float x2, float id1, float id2, float pdf1, float pdf2, float scale) {
 
+ PDF();
+ SetIncoming(x1, x2, id1, id2, pdf1, pdf2, scale);
+  
+}
+ 
+
+//! functions
+
+void PDF::SetIncoming(float x1, float x2, float id1, float id2, float pdf1, float pdf2, float scale) {
+ 
  _x1   = x1;
  _id1  = id1;
  _pdf1 = pdf1;
@@ -46,21 +71,20 @@ PDF::PDF(float x1, float x2, float id1, float id2, float pdf1, float pdf2, float
  _x2   = x2;
  _id2  = id2;
  _pdf2 = pdf2;
-
+ 
  _scale = scale;
  
 }
-
-//! functions
 
 float PDF::w1(){
  
 //  float weight = LHAPDF::xfx ((double) _x1, (double) _scale, (int) _id1) * LHAPDF::xfx ((double) _x2, (double) _scale, (int) _id2) ;
 
- float weight = LHAPDF::xfx (10.2, 1.23, 10);
+ float weight = LHAPDF::xfx (0.2, 1.23, 1);
+ std::cout << " weight = " << weight << std::endl;
  weight+=1;
  
- return -1;
+ return weight;
  
 }
 

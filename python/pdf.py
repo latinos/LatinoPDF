@@ -67,8 +67,12 @@ class PDFVarFiller(TreeCloner):
             #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5/lib/libLHAPDF.so')
             #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5/include')
 
-            ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/lib/python2.7/site-packages/_lhapdf.so')
+            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/lib/python2.7/site-packages/_lhapdf.so')
+            #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/lib/python2.7/site-packages/_lhapdf')
+            #ln -s /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/lib/libLHAPDF.a 
+            ROOT.gSystem.Load('libLHAPDF.so')
             ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/5.9.1/include')
+                
             
             #ROOT.gSystem.Load('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-odfocd/lib/libLHAPDF.so')
             #ROOT.gInterpreter.AddIncludePath('/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-odfocd/include')
@@ -95,6 +99,8 @@ class PDFVarFiller(TreeCloner):
         print '- Starting eventloop'
         step = 5000
 
+        PDF = ROOT.PDF()
+
         for i in xrange(nentries):
 
             itree.GetEntry(i)
@@ -110,7 +116,7 @@ class PDFVarFiller(TreeCloner):
             pdf2 = itree.pdfx2PDF
             scale = itree.pdfscalePDF
 
-            PDF = ROOT.PDF(x1, x2, id1, id2, pdf1, pdf2, scale)
+            PDF.SetIncoming(x1, x2, id1, id2, pdf1, pdf2, scale)
 
             w1[0]   = PDF.w1()
             
